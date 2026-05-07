@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Integrations | Yayzar</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./index.html"><img src="./assets/yayzar-logo.svg" alt="Yayzar" /></a>
+      <nav class="site-nav">
+        <a href="./platform.html">Platform</a>
+        <a href="./san-jose-data.html">San Jose data</a>
+        <a href="./security.html">Security</a>
+      </nav>
+      <div class="header-actions"><a class="primary-button" href="./index.html#integrations">Connect demo</a></div>
+    </header>
+    <main>
+      <section class="subpage-hero compact">
+        <p class="eyebrow">Integrations</p>
+        <h1>Real API surfaces a production version would use.</h1>
+        <p>These pages do not fake live authentication. They show the systems, fields, events, and links a credible production build would need.</p>
+      </section>
+
+      <section class="integration-grid page-grid">
+        <article class="integration-card"><div><span class="hubspot">H</span><h3>HubSpot</h3></div><p>Contacts, companies, forms, lists, lifecycle stage, source campaign, and marketing engagement.</p><a href="https://developers.hubspot.com/docs/api/overview" target="_blank" rel="noreferrer">Open API docs</a></article>
+        <article class="integration-card"><div><span class="salesforce">S</span><h3>Salesforce</h3></div><p>Accounts, contacts, leads, opportunities, owners, tasks, activities, field history, and territory routing.</p><a href="https://developer.salesforce.com/docs/apis" target="_blank" rel="noreferrer">Open API docs</a></article>
+        <article class="integration-card"><div><span class="slack">#</span><h3>Slack</h3></div><p>Owner alerts, scan digests, leadership summaries, exception queues, and enrichment-complete notifications.</p><a href="https://api.slack.com/" target="_blank" rel="noreferrer">Open API docs</a></article>
+        <article class="integration-card"><div><span class="mail">@</span><h3>SendGrid</h3></div><p>Email delivery, reply tracking, event webhooks, bounce handling, suppression lists, and sequence analytics.</p><a href="https://www.twilio.com/docs/sendgrid" target="_blank" rel="noreferrer">Open API docs</a></article>
+      </section>
+
+      <section class="page-section">
+        <div class="section-heading">
+          <p class="eyebrow">Event map</p>
+          <h2>What each button would connect to.</h2>
+        </div>
+        <div class="data-table compact-table">
+          <div class="data-row header"><span>Action</span><span>System</span><span>Event</span><span>Expected result</span></div>
+          <div class="data-row"><strong>Connect HubSpot</strong><span>OAuth</span><span>Company/contact sync</span><span>Source records populate account queue</span></div>
+          <div class="data-row"><strong>Connect Salesforce</strong><span>OAuth</span><span>Account/opportunity sync</span><span>Owner, stage, and activity fields normalize</span></div>
+          <div class="data-row"><strong>Copy webhook</strong><span>API gateway</span><span>crm.events.received</span><span>Endpoint copied for inbound CRM events</span></div>
+          <div class="data-row"><strong>Run enrichment</strong><span>Worker queue</span><span>account.enrichment.started</span><span>Signals and summaries refresh</span></div>
+          <div class="data-row"><strong>Run area scan</strong><span>Scanner</span><span>market.area.scanned</span><span>Location-specific accounts route to owners</span></div>
+          <div class="data-row"><strong>Draft email</strong><span>Outbound</span><span>message.draft.created</span><span>Account-specific outreach is generated</span></div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

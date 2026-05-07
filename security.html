@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Security | Yayzar</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./index.html"><img src="./assets/yayzar-logo.svg" alt="Yayzar" /></a>
+      <nav class="site-nav">
+        <a href="./platform.html">Platform</a>
+        <a href="./san-jose-data.html">San Jose data</a>
+        <a href="./integrations.html">Integrations</a>
+      </nav>
+      <div class="header-actions"><a class="primary-button" href="./index.html">Home</a></div>
+    </header>
+    <main>
+      <section class="subpage-hero compact">
+        <p class="eyebrow">Security</p>
+        <h1>Formal controls for CRM-connected workflows.</h1>
+        <p>Yayzar is a demo, but the security page is written like a real B2B product: scoped access, auditability, controlled exports, source labeling, and careful handling of public versus private data.</p>
+      </section>
+
+      <section class="process-grid">
+        <article><strong>OAuth</strong><h2>Scoped access</h2><p>Each CRM connection is represented as least-privilege access with revocable authorization and explicit source labeling.</p></article>
+        <article><strong>Logs</strong><h2>Traceability</h2><p>Workflow runs are auditable from webhook intake through enrichment, owner routing, and notification delivery.</p></article>
+        <article><strong>Data</strong><h2>Field mapping</h2><p>Only necessary CRM fields enter scoring, summaries, and downstream export surfaces.</p></article>
+        <article><strong>Export</strong><h2>Boundaries</h2><p>CSV output is deliberate and visible, so records do not silently leave the workspace.</p></article>
+      </section>
+
+      <section class="page-section">
+        <div class="section-heading">
+          <p class="eyebrow">Control checklist</p>
+          <h2>What a production version would enforce.</h2>
+        </div>
+        <div class="module-grid">
+          <article><h3>Token storage</h3><p>Encrypt CRM tokens, rotate secrets, and revoke access by organization or user.</p><span>OAuth scopes · rotation · revocation</span></article>
+          <article><h3>Webhook verification</h3><p>Verify signatures, reject stale timestamps, and log event IDs for replay protection.</p><span>Signed payloads · timestamp window · replay checks</span></article>
+          <article><h3>Role access</h3><p>Separate founder, RevOps, sales manager, and SDR access for scans, exports, and settings.</p><span>RBAC · owner visibility · admin controls</span></article>
+          <article><h3>Data labeling</h3><p>Label public company facts, directory listings, and CRM-derived sample records separately.</p><span>Public · directory · CRM sample</span></article>
+          <article><h3>Alert governance</h3><p>Route sensitive alerts only to authorized channels and log notification destinations.</p><span>Slack channel policy · email allowlist</span></article>
+          <article><h3>Retention</h3><p>Set retention windows for raw events, enriched summaries, generated drafts, and export files.</p><span>Events · summaries · drafts · CSV</span></article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
