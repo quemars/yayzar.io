@@ -56,10 +56,10 @@
             </div>
             <div class="mega-column">
               <p class="mega-label">Company</p>
+              <a href="./purpose.html"><strong>Purpose</strong><span>Business model, outcomes, and growth thesis.</span></a>
               <button data-modal="demo" type="button"><strong>Book demo</strong><span>Send a formal walkthrough request.</span></button>
               <button data-modal="account" type="button"><strong>Create account</strong><span>Open the demo workspace form.</span></button>
               <a href="#legal"><strong>Legal</strong><span>Terms, privacy, cookies, and data disclaimer.</span></a>
-              <a href="#footer"><strong>Contact</strong><span>quemars200@gmail.com</span></a>
             </div>
           </div>
         </div>
@@ -75,6 +75,7 @@
             <a href="./integrations.html"><strong>API Links</strong><span>Open real integration documentation.</span></a>
           </div>
         </div>
+        <a href="./purpose.html">Purpose</a>
         <a href="./integrations.html">Integrations</a>
         <button class="nav-button" id="pricingToggle" type="button">Pricing</button>
       </nav>
@@ -88,36 +89,48 @@
     <main>
       <section class="hero" id="home">
         <div class="hero-copy">
-          <p class="eyebrow">Revenue operations platform</p>
-          <h1>Sales intelligence for local growth teams.</h1>
+          <p class="eyebrow">Local sales intelligence platform</p>
+          <h1>Find better accounts. Move faster. Sell with context.</h1>
           <p>
-            Yayzar helps teams find nearby companies, organize account research, and turn market signals into focused sales actions.
+            Yayzar turns local business data, CRM workflow, and account signals into a focused operating system for teams that need cleaner prospecting and sharper outreach.
           </p>
           <div class="hero-actions">
             <button class="primary-button large" data-scroll="#cockpit">View account cockpit</button>
             <a class="secondary-button large" href="./location.html">Find companies near me</a>
+            <a class="secondary-button large" href="./purpose.html">Read purpose</a>
             <button class="secondary-button large" data-modal="pricing">Check pricing</button>
-            <a class="secondary-button large" href="./platform.html">View platform</a>
-            <a class="secondary-button large" href="./san-jose-data.html">San Jose dataset</a>
           </div>
           <div class="trust-row" aria-label="Platform highlights">
-            <span>42 San Jose accounts loaded</span>
-            <span>OAuth-secured CRM workflow</span>
-            <span>Area-based account scanning</span>
+            <span>Local business search</span>
+            <span>Account brief automation</span>
+            <span>CRM-ready workflow</span>
           </div>
         </div>
 
-        <div class="hero-product" aria-label="Product preview">
-          <img src="./assets/ai-sales-ops.png" alt="Yayzar sales intelligence product preview" />
-          <div class="hero-card priority-card">
-            <small>Priority account</small>
-            <strong>Adobe · San Jose</strong>
-            <span>$23.77B FY2025 revenue · AI adoption signal</span>
+        <div class="hero-command" aria-label="Yayzar operating system preview">
+          <div class="command-sidebar">
+            <span class="status-dot"></span>
+            <strong>Yayzar</strong>
+            <small>Local growth OS</small>
+            <button>Scan market</button>
+            <button>Rank accounts</button>
+            <button>Build brief</button>
           </div>
-          <div class="hero-card sync-card">
-            <small>Webhook intake</small>
-            <strong>286</strong>
-            <span>demo events normalized today</span>
+          <div class="command-main">
+            <div class="command-topline">
+              <span>Live territory</span>
+              <strong>San Jose growth motion</strong>
+            </div>
+            <div class="command-grid">
+              <article><span>Accounts</span><strong>42</strong><small>loaded sample</small></article>
+              <article><span>Pipeline</span><strong>$420K</strong><small>qualified demo value</small></article>
+              <article><span>Meetings</span><strong>27</strong><small>tracked outcomes</small></article>
+            </div>
+            <div class="command-list">
+              <div><span></span><strong>Nearby business search</strong><small>Location and ZIP based prospecting</small></div>
+              <div><span></span><strong>AI account brief</strong><small>Signals, fit score, and outreach angle</small></div>
+              <div><span></span><strong>Workflow routing</strong><small>Owner assignment, export, and CRM handoff</small></div>
+            </div>
           </div>
         </div>
       </section>
@@ -128,6 +141,20 @@
         <span>OpenAI</span>
         <span>Slack</span>
         <span>OpenStreetMap</span>
+      </section>
+
+      <section class="section venture-proof">
+        <div class="section-heading">
+          <p class="eyebrow">Pilot traction model</p>
+          <h2>Built for operators who need real account motion, not another spreadsheet.</h2>
+          <p>Yayzar is positioned around a simple loop: find businesses, enrich the account, draft a better first touch, then track the next action.</p>
+        </div>
+        <div class="venture-grid">
+          <article><strong>12</strong><span>pilot-style client workflows modeled</span><p>Local service, software, retail, and agency teams represented across the operating model.</p></article>
+          <article><strong>18%</strong><span>average reply-rate lift target</span><p>Based on more relevant account context and shorter outbound preparation cycles.</p></article>
+          <article><strong>34%</strong><span>lead research time saved</span><p>Modeled reduction from location search, account brief generation, and CSV-ready exports.</p></article>
+          <article><strong>$420K</strong><span>qualified pipeline tracked</span><p>Demo pipeline view for showing how revenue teams evaluate territory quality.</p></article>
+        </div>
       </section>
 
       <section class="section platform" id="platform">
@@ -175,6 +202,13 @@
           </div>
         </div>
 
+        <div class="cockpit-kpis" aria-label="Cockpit metrics">
+          <article><span>Active territory</span><strong>San Jose</strong><small>6 scan zones</small></article>
+          <article><span>Best segment</span><strong>Local tech</strong><small>74% avg fit</small></article>
+          <article><span>Next action</span><strong>Brief queue</strong><small>8 accounts ready</small></article>
+          <article><span>Pipeline view</span><strong>$420K</strong><small>demo qualified</small></article>
+        </div>
+
         <div class="control-strip" aria-label="Prospect controls">
           <label class="search-box">
             <span>Search</span>
@@ -191,6 +225,11 @@
             <input id="fitThreshold" type="range" min="45" max="95" value="45" />
             <output id="thresholdValue">45</output>
           </label>
+          <div class="segment" id="stageSegment" role="tablist" aria-label="Sales stage">
+            <button class="selected" data-stage="research">Research</button>
+            <button data-stage="brief">Brief</button>
+            <button data-stage="outreach">Outreach</button>
+          </div>
         </div>
 
         <div class="scan-console" aria-label="San Jose scan console">
@@ -212,6 +251,19 @@
             <strong id="scanCount">42</strong>
             <span id="scanLabel">accounts visible</span>
             <button class="primary-button small" id="scanArea">Run scan</button>
+          </div>
+        </div>
+
+        <div class="playbook-strip">
+          <article>
+            <span>Recommended play</span>
+            <strong id="playbookTitle">Local visibility audit</strong>
+            <p id="playbookText">Lead with a fast account-data check: missing website, weak local category, or unclear conversion path.</p>
+          </article>
+          <div class="playbook-actions">
+            <button class="secondary-button small" data-playbook="visibility">Visibility</button>
+            <button class="secondary-button small" data-playbook="crm">CRM cleanup</button>
+            <button class="secondary-button small" data-playbook="outreach">Outbound</button>
           </div>
         </div>
 
@@ -296,6 +348,22 @@
               </label>
             </div>
             <div class="events" id="events"></div>
+          </article>
+
+          <article class="panel ideas-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Growth ideas</p>
+                <h3>What to build next</h3>
+              </div>
+            </div>
+            <div class="idea-list">
+              <button type="button" data-idea="zip">ZIP-based market packs</button>
+              <button type="button" data-idea="agency">Agency lead lists</button>
+              <button type="button" data-idea="retail">Retail visibility audit</button>
+              <button type="button" data-idea="crm">CRM dedupe assistant</button>
+            </div>
+            <p id="ideaOutput" class="summary">Choose an idea to generate a product angle for the selected account.</p>
           </article>
         </div>
       </section>
@@ -395,6 +463,7 @@
           </div>
           <div>
             <strong>Company</strong>
+            <a href="./purpose.html">Purpose</a>
             <button data-modal="pricing" type="button">Pricing</button>
             <button data-modal="account" type="button">Create account</button>
             <button data-modal="demo" type="button">Request demo</button>

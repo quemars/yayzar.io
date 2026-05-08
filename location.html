@@ -17,6 +17,7 @@
       </a>
       <nav class="site-nav">
         <a href="./index.html">Home</a>
+        <a href="./purpose.html">Purpose</a>
         <a href="./platform.html">Platform</a>
         <a href="./integrations.html">Integrations</a>
         <a href="./security.html">Security</a>
@@ -46,25 +47,32 @@
         <div class="locator-shell">
           <div class="locator-controls">
             <div>
-              <label>
-                Search category
-                <select id="nearbyCategory">
-                  <option value="all">All business places</option>
-                  <option value="office">Offices and agencies</option>
-                  <option value="retail">Retail and services</option>
-                  <option value="food">Restaurants and cafes</option>
-                  <option value="health">Health and wellness</option>
-                </select>
-              </label>
-              <label>
-                Radius
-                <select id="nearbyRadius">
-                  <option value="16093" selected>10 miles</option>
-                  <option value="40234">25 miles</option>
-                  <option value="80467">50 miles</option>
-                  <option value="160934">100 miles</option>
-                </select>
-              </label>
+              <div class="control-group">
+                <span>Search category</span>
+                <div class="choice-grid" id="categoryChoices">
+                  <button class="selected" type="button" data-category="all">All</button>
+                  <button type="button" data-category="office">Offices</button>
+                  <button type="button" data-category="retail">Retail</button>
+                  <button type="button" data-category="food">Food</button>
+                  <button type="button" data-category="health">Health</button>
+                </div>
+              </div>
+              <div class="control-group">
+                <span>Radius</span>
+                <div class="choice-grid radius-grid" id="radiusChoices">
+                  <button class="selected" type="button" data-radius="16093">10 mi</button>
+                  <button type="button" data-radius="40234">25 mi</button>
+                  <button type="button" data-radius="80467">50 mi</button>
+                  <button type="button" data-radius="160934">100 mi</button>
+                </div>
+              </div>
+              <form class="zip-form" id="zipForm">
+                <label for="zipInput">Search by ZIP code</label>
+                <div>
+                  <input id="zipInput" type="text" inputmode="numeric" maxlength="10" placeholder="95113" />
+                  <button class="secondary-button" type="submit">Search ZIP</button>
+                </div>
+              </form>
             </div>
             <button class="primary-button large" id="useLocation">Use my location</button>
             <button class="secondary-button large" id="exportNearby" disabled>Export results</button>
@@ -110,6 +118,11 @@
             <button type="button" data-question="Which businesses are closest?">Closest</button>
             <button type="button" data-question="Which results have websites?">Has websites</button>
             <button type="button" data-question="What should I contact first?">Best targets</button>
+            <button type="button" data-question="Find food businesses without websites.">Food gaps</button>
+            <button type="button" data-question="Group these by category.">Group by category</button>
+            <button type="button" data-question="Write a short outreach opener for the top result.">Draft opener</button>
+            <button type="button" data-question="Which businesses need manual enrichment?">Needs enrichment</button>
+            <button type="button" data-question="Create a sales plan from this scan.">Sales plan</button>
             <button type="button" data-question="Summarize this search.">Summarize</button>
           </div>
         </div>

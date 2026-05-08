@@ -554,6 +554,31 @@ const nearbyCategory = document.querySelector("#nearbyCategory");
 const nearbyRadius = document.querySelector("#nearbyRadius");
 const locationStatus = document.querySelector("#locationStatus");
 const nearbyResults = document.querySelector("#nearbyResults");
+const playbookTitle = document.querySelector("#playbookTitle");
+const playbookText = document.querySelector("#playbookText");
+const ideaOutput = document.querySelector("#ideaOutput");
+
+const playbooks = {
+  visibility: [
+    "Local visibility audit",
+    "Lead with a fast account-data check: missing website, weak local category, or unclear conversion path.",
+  ],
+  crm: [
+    "CRM cleanup motion",
+    "Position Yayzar as a way to remove duplicate records, fill missing account context, and route owners faster.",
+  ],
+  outreach: [
+    "Outbound relevance sprint",
+    "Use the selected account signals to write a tighter first touch, then export a clean list for follow-up.",
+  ],
+};
+
+const ideaCopy = {
+  zip: "Create ZIP-code market packs: nearby businesses, missing web presence, category density, and first-touch angles.",
+  agency: "Package client-ready lead lists for agencies that sell local SEO, web design, paid ads, or CRM cleanup.",
+  retail: "Score retail accounts by proximity, website availability, and category fit, then pitch a visibility audit.",
+  crm: "Offer a CRM hygiene assistant that flags duplicates, missing websites, weak categories, and stale owner assignments.",
+};
 
 function escapeHtml(value) {
   return String(value)
@@ -1013,6 +1038,19 @@ document.querySelectorAll(".mini-tabs button").forEach((button) => {
   });
 });
 
+document.querySelectorAll("#stageSegment button").forEach((button) => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll("#stageSegment button").forEach((item) => item.classList.remove("selected"));
+    button.classList.add("selected");
+    const labels = {
+      research: "Research view active: prioritize account quality before outreach.",
+      brief: "Brief view active: open an account and draft a tighter message.",
+      outreach: "Outreach view active: export the list and route next actions.",
+    };
+    showToast(labels[button.dataset.stage]);
+  });
+});
+
 document.querySelectorAll("#areaGrid button").forEach((button) => {
   button.addEventListener("click", () => {
     if (!button.dataset.area) return;
@@ -1021,6 +1059,22 @@ document.querySelectorAll("#areaGrid button").forEach((button) => {
     activeArea = button.dataset.area;
     renderProspects();
     showToast(activeArea === "all" ? "Showing all San Jose accounts" : `${activeArea} scan loaded`);
+  });
+});
+
+document.querySelectorAll("[data-playbook]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const [title, text] = playbooks[button.dataset.playbook];
+    playbookTitle.textContent = title;
+    playbookText.textContent = text;
+    showToast(`${title} loaded`);
+  });
+});
+
+document.querySelectorAll("[data-idea]").forEach((button) => {
+  button.addEventListener("click", () => {
+    ideaOutput.textContent = ideaCopy[button.dataset.idea];
+    showToast("Growth idea generated");
   });
 });
 

@@ -4,8 +4,10 @@ let progressTimer;
 let progressIndex = 0;
 
 const useLocationButton = document.querySelector("#useLocation");
-const nearbyCategory = document.querySelector("#nearbyCategory");
-const nearbyRadius = document.querySelector("#nearbyRadius");
+const categoryChoices = document.querySelector("#categoryChoices");
+const radiusChoices = document.querySelector("#radiusChoices");
+const zipForm = document.querySelector("#zipForm");
+const zipInput = document.querySelector("#zipInput");
 const locationStatus = document.querySelector("#locationStatus");
 const nearbyResults = document.querySelector("#nearbyResults");
 const exportNearby = document.querySelector("#exportNearby");
@@ -17,6 +19,10 @@ const progressBar = document.querySelector("#progressBar");
 const askForm = document.querySelector("#askForm");
 const askInput = document.querySelector("#askInput");
 const askChat = document.querySelector("#askChat");
+
+let activeCategory = "all";
+let activeRadius = 16093;
+let activeRadiusLabel = "10 miles";
 
 const progressSteps = [
   ["Checking permission", "Tip: tighter categories return cleaner lists for bigger radius scans.", 14],
@@ -56,6 +62,11 @@ function showToast(message) {
   toast.classList.add("show");
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+}
+
+function setSelectedChoice(group, button, className) {
+  group.querySelectorAll("button").forEach((item) => item.classList.remove(className));
+  button.classList.add(className);
 }
 
 function setProgressStep(index) {
@@ -237,6 +248,27 @@ function answerQuestion(question) {
     return `Businesses with websites: ${withWebsites.map(formatPlace).join(" ")}`;
   }
 
+  if (text.includes("without website") || text.includes("missing website") || text.includes("manual enrichment") || text.includes("needs enrichment")) {
+    const gaps = results.filter((place) => !place.website).slice(0, 6);
+    if (!gaps.length) return "Every visible result has a website listed. I would still verify phone, address, and business category before outreach.";
+    return `Manual enrichment targets: ${gaps.map(formatPlace).join(" ")} These need website lookup or confirmation before they go into a campaign.`;
+  }
+
+  if (text.includes("food") || text.includes("restaurant") || text.includes("cafe")) {
+    const food = results.filter((place) => /restaurant|cafe|bar|fast food|pub|food/i.test(place.category)).slice(0, 6);
+    if (!food.length) return "I do not see food businesses in this scan. Try the Food category and rerun the search.";
+    return `Food-related targets: ${food.map(formatPlace).join(" ")}`;
+  }
+
+  if (text.includes("opener") || text.includes("draft") || text.includes("email")) {
+    const target = results[0];
+    return `Outreach opener for ${target.name}: “Hi, I noticed ${target.name} is a nearby ${target.category} in our local market. I’m building Yayzar to help local businesses surface nearby demand, clean up their business data, and find better-fit customers. Would it be worth a quick look at where your local visibility could improve?”`;
+  }
+
+  if (text.includes("sales plan") || text.includes("plan") || text.includes("strategy")) {
+    return `Sales plan: 1. Start with the closest 10 businesses that have websites. 2. Put records without websites into manual enrichment. 3. Group the list by category so each message feels specific. 4. Contact the top five with a local-visibility angle. 5. Export the CSV and track replies in the cockpit.`;
+  }
+
   if (text.includes("contact") || text.includes("first") || text.includes("best") || text.includes("priority")) {
     const ranked = [...results]
       .sort((a, b) => (b.website ? 1 : 0) - (a.website ? 1 : 0) || a.distance - b.distance)
@@ -250,7 +282,7 @@ function answerQuestion(question) {
 
   if (text.includes("summary") || text.includes("summarize") || text.includes("overview")) {
     const closest = results[0];
-    return `This scan found ${results.length} businesses within ${nearbyRadius.selectedOptions[0].textContent}. The closest is ${closest.name} at ${milesFromMeters(closest.distance)} miles. Category mix: ${summarizeCategories(results)}. ${results.filter((place) => place.website).length} records include websites.`;
+    return `This scan found ${results.length} businesses within ${activeRadiusLabel}. The closest is ${closest.name} at ${milesFromMeters(closest.distance)} miles. Category mix: ${summarizeCategories(results)}. ${results.filter((place) => place.website).length} records include websites.`;
   }
 
   if (text.includes("export") || text.includes("csv")) {
@@ -261,12 +293,25 @@ function answerQuestion(question) {
 }
 
 async function fetchNearbyCompanies(latitude, longitude) {
-  const query = getCategoryQuery(nearbyCategory.value, nearbyRadius.value, latitude, longitude);
+  const query = getCategoryQuery(activeCategory, activeRadius, latitude, longitude);
   const url = `https://overpass-api.de/api/interpreter?${new URLSearchParams({ data: query })}`;
   const response = await fetch(url);
   if (!response.ok) throw new Error(`Location server returned ${response.status}. Try a smaller radius or narrower category.`);
   const data = await response.json();
   return normalizeNearbyElements(data.elements || [], latitude, longitude);
+}
+
+async function getZipPosition(zip) {
+  const response = await fetch(`https://api.zippopotam.us/us/${encodeURIComponent(zip)}`);
+  if (!response.ok) throw new Error("ZIP code not found. Try a valid US ZIP code.");
+  const data = await response.json();
+  const place = data.places?.[0];
+  if (!place) throw new Error("ZIP code did not return a location.");
+  return {
+    latitude: Number(place.latitude),
+    longitude: Number(place.longitude),
+    label: `${place["place name"]}, ${place["state abbreviation"]} ${data["post code"]}`,
+  };
 }
 
 function getBrowserPosition() {
@@ -295,7 +340,7 @@ async function runNearbySearch() {
     useLocationButton.textContent = "Searching...";
     lastNearbyResults = await fetchNearbyCompanies(latitude, longitude);
     renderNearbyResults(lastNearbyResults);
-    locationStatus.textContent = `${lastNearbyResults.length} businesses found within ${nearbyRadius.selectedOptions[0].textContent}.`;
+    locationStatus.textContent = `${lastNearbyResults.length} businesses found within ${activeRadiusLabel}.`;
     finishSearchProgress("Results ready");
     addChatMessage("agent", `I found ${lastNearbyResults.length} businesses. Ask me which ones are closest, which have websites, or what to contact first.`);
     showToast("Nearby business search complete");
@@ -310,6 +355,32 @@ async function runNearbySearch() {
   } finally {
     useLocationButton.disabled = false;
     useLocationButton.textContent = "Use my location";
+  }
+}
+
+async function runZipSearch(zip) {
+  useLocationButton.disabled = true;
+  locationStatus.textContent = `Looking up ZIP code ${zip}.`;
+  startSearchProgress();
+  try {
+    const position = await getZipPosition(zip);
+    locationStatus.textContent = `Searching near ${position.label}.`;
+    lastNearbyResults = await fetchNearbyCompanies(position.latitude, position.longitude);
+    renderNearbyResults(lastNearbyResults);
+    locationStatus.textContent = `${lastNearbyResults.length} businesses found near ${position.label} within ${activeRadiusLabel}.`;
+    finishSearchProgress("ZIP results ready");
+    addChatMessage("agent", `I found ${lastNearbyResults.length} businesses near ${position.label}. Ask me for closest accounts, missing websites, or a sales plan.`);
+    showToast("ZIP business search complete");
+  } catch (error) {
+    clearInterval(progressTimer);
+    searchProgress.classList.remove("active");
+    searchProgress.setAttribute("aria-hidden", "true");
+    lastNearbyResults = [];
+    renderNearbyResults([]);
+    locationStatus.textContent = error.message;
+    showToast("ZIP search could not complete");
+  } finally {
+    useLocationButton.disabled = false;
   }
 }
 
@@ -330,6 +401,31 @@ function exportResults() {
 
 useLocationButton.addEventListener("click", runNearbySearch);
 exportNearby.addEventListener("click", exportResults);
+
+categoryChoices.querySelectorAll("button").forEach((button) => {
+  button.addEventListener("click", () => {
+    activeCategory = button.dataset.category;
+    setSelectedChoice(categoryChoices, button, "selected");
+  });
+});
+
+radiusChoices.querySelectorAll("button").forEach((button) => {
+  button.addEventListener("click", () => {
+    activeRadius = Number(button.dataset.radius);
+    activeRadiusLabel = button.textContent.replace(" mi", " miles");
+    setSelectedChoice(radiusChoices, button, "selected");
+  });
+});
+
+zipForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const zip = zipInput.value.trim();
+  if (!/^\d{5}$/.test(zip)) {
+    locationStatus.textContent = "Enter a valid 5-digit US ZIP code.";
+    return;
+  }
+  runZipSearch(zip);
+});
 
 askForm.addEventListener("submit", (event) => {
   event.preventDefault();
