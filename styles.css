@@ -1226,6 +1226,198 @@ canvas {
   font-weight: 500;
 }
 
+.search-progress {
+  display: none;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: linear-gradient(180deg, #ffffff, #f7f7f9);
+}
+
+.search-progress.active {
+  display: grid;
+}
+
+.pulse-orbit {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  margin: 2px 0;
+  border: 1px solid #e8e1d6;
+  border-radius: 50%;
+  background: #111111;
+  overflow: hidden;
+}
+
+.pulse-orbit::before {
+  content: "";
+  position: absolute;
+  inset: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+}
+
+.pulse-orbit span {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #c0a06b;
+  animation: orbitPulse 1.5s ease-in-out infinite;
+}
+
+.pulse-orbit span:nth-child(1) {
+  left: 25px;
+  top: 8px;
+}
+
+.pulse-orbit span:nth-child(2) {
+  right: 10px;
+  bottom: 16px;
+  animation-delay: 160ms;
+}
+
+.pulse-orbit span:nth-child(3) {
+  left: 12px;
+  bottom: 15px;
+  animation-delay: 320ms;
+}
+
+@keyframes orbitPulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.82);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.28);
+  }
+}
+
+.search-progress strong {
+  font-weight: 600;
+}
+
+.search-progress p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.progress-track {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #ececf1;
+}
+
+.progress-track span {
+  display: block;
+  width: 12%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #111111, #b69a6a);
+  transition: width 340ms ease;
+}
+
+.ask-section {
+  background: #ffffff;
+}
+
+.ask-shell {
+  display: grid;
+  gap: 14px;
+  max-width: 980px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #f7f7f9;
+  padding: 14px;
+  box-shadow: 0 14px 38px rgba(8, 8, 11, 0.06);
+}
+
+.ask-chat {
+  display: grid;
+  gap: 10px;
+  max-height: 430px;
+  overflow: auto;
+  padding: 8px;
+}
+
+.agent-message,
+.user-message {
+  max-width: min(760px, 92%);
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+}
+
+.agent-message {
+  justify-self: start;
+}
+
+.user-message {
+  justify-self: end;
+  background: #111111;
+  color: #ffffff;
+}
+
+.agent-message strong,
+.user-message strong {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.agent-message p,
+.user-message p {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.agent-message p {
+  color: #424245;
+}
+
+.ask-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+.ask-form input {
+  min-height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 0 14px;
+  color: var(--ink);
+}
+
+.ask-prompts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ask-prompts button {
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.ask-prompts button:hover {
+  color: var(--ink);
+  border-color: #cfc8ba;
+}
+
 .market-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2131,6 +2323,15 @@ canvas {
   .data-row,
   .data-row.header {
     grid-template-columns: 1fr;
+  }
+
+  .ask-form {
+    grid-template-columns: 1fr;
+  }
+
+  .agent-message,
+  .user-message {
+    max-width: 100%;
   }
 
   h1 {

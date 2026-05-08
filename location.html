@@ -69,12 +69,48 @@
             <button class="primary-button large" id="useLocation">Use my location</button>
             <button class="secondary-button large" id="exportNearby" disabled>Export results</button>
             <p class="locator-status" id="locationStatus">Ready to search nearby companies.</p>
+            <div class="search-progress" id="searchProgress" aria-hidden="true">
+              <div class="pulse-orbit" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div>
+                <strong id="progressTitle">Preparing scan</strong>
+                <p id="progressTip">Yayzar is getting the search ready.</p>
+              </div>
+              <div class="progress-track"><span id="progressBar"></span></div>
+            </div>
           </div>
           <div class="locator-results" id="nearbyResults" aria-live="polite">
             <article class="nearby-empty">
               <strong>No location scan yet</strong>
               <span>Approve location access to see nearby businesses, distances, categories, and map records.</span>
             </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section ask-section">
+        <div class="section-heading">
+          <p class="eyebrow">Ask Yayzar</p>
+          <h2>A local search agent for your results.</h2>
+          <p>
+            Ask about the businesses found in your scan: closest places, best outreach targets, categories, missing websites, or what to do next.
+          </p>
+        </div>
+        <div class="ask-shell">
+          <div class="ask-chat" id="askChat" aria-live="polite">
+            <div class="agent-message">
+              <strong>Yayzar</strong>
+              <p>Run a nearby search, then ask me things like “which businesses are closest?”, “find restaurants with websites,” or “what should I contact first?”</p>
+            </div>
+          </div>
+          <form class="ask-form" id="askForm">
+            <input id="askInput" type="text" placeholder="Ask Yayzar about the search results..." autocomplete="off" />
+            <button class="primary-button" type="submit">Ask</button>
+          </form>
+          <div class="ask-prompts" aria-label="Suggested questions">
+            <button type="button" data-question="Which businesses are closest?">Closest</button>
+            <button type="button" data-question="Which results have websites?">Has websites</button>
+            <button type="button" data-question="What should I contact first?">Best targets</button>
+            <button type="button" data-question="Summarize this search.">Summarize</button>
           </div>
         </div>
       </section>
