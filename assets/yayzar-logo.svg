@@ -1,8 +1,8 @@
-<svg width="160" height="48" viewBox="0 0 160 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="yayzar.io">
+<svg width="184" height="48" viewBox="0 0 184 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="yayzar.com">
   <rect x="1" y="1" width="46" height="46" rx="12" fill="#0A0A0C" stroke="#2A2A2D" stroke-width="2"/>
   <path d="M9 9L17 17L9 25M21 9L29 17L21 25M33 9L41 17L33 25" stroke="#3A3935" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="miter"/>
   <path d="M9 23L17 31L9 39M21 23L29 31L21 39M33 23L41 31L33 39" stroke="#3A3935" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="miter"/>
   <path d="M12 13L24 25L36 13" stroke="#FFFFFF" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"/>
   <path d="M36 35H14L36 13" stroke="#B69A6A" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"/>
-  <text x="60" y="29" fill="#111111" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="900">yayzar.io</text>
+  <text x="60" y="29" fill="#111111" font-family="-apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="20" font-weight="700">yayzar.com</text>
 </svg>

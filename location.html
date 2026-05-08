@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Find Nearby Businesses | yayzar.com</title>
+    <meta
+      name="description"
+      content="Use Yayzar to find real nearby businesses from browser location and OpenStreetMap data."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./index.html" aria-label="Yayzar home">
+        <img src="./assets/yayzar-logo.svg" alt="Yayzar" />
+      </a>
+      <nav class="site-nav">
+        <a href="./index.html">Home</a>
+        <a href="./platform.html">Platform</a>
+        <a href="./integrations.html">Integrations</a>
+        <a href="./security.html">Security</a>
+      </nav>
+      <div class="header-actions">
+        <a class="primary-button" href="./index.html#cockpit">Open cockpit</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="subpage-hero location-hero">
+        <p class="eyebrow">Live business finder</p>
+        <h1>Find companies around you.</h1>
+        <p>
+          Give Yayzar location access, choose a radius, and pull nearby mapped businesses into a clean prospecting view.
+        </p>
+      </section>
+
+      <section class="section location-finder">
+        <div class="section-heading">
+          <p class="eyebrow">Nearby search</p>
+          <h2>Real local business data, organized for outreach.</h2>
+          <p>
+            Results come from OpenStreetMap place records. Larger scans cover more ground, so they may take a few extra seconds.
+          </p>
+        </div>
+        <div class="locator-shell">
+          <div class="locator-controls">
+            <div>
+              <label>
+                Search category
+                <select id="nearbyCategory">
+                  <option value="all">All business places</option>
+                  <option value="office">Offices and agencies</option>
+                  <option value="retail">Retail and services</option>
+                  <option value="food">Restaurants and cafes</option>
+                  <option value="health">Health and wellness</option>
+                </select>
+              </label>
+              <label>
+                Radius
+                <select id="nearbyRadius">
+                  <option value="16093" selected>10 miles</option>
+                  <option value="40234">25 miles</option>
+                  <option value="80467">50 miles</option>
+                  <option value="160934">100 miles</option>
+                </select>
+              </label>
+            </div>
+            <button class="primary-button large" id="useLocation">Use my location</button>
+            <button class="secondary-button large" id="exportNearby" disabled>Export results</button>
+            <p class="locator-status" id="locationStatus">Ready to search nearby companies.</p>
+          </div>
+          <div class="locator-results" id="nearbyResults" aria-live="polite">
+            <article class="nearby-empty">
+              <strong>No location scan yet</strong>
+              <span>Approve location access to see nearby businesses, distances, categories, and map records.</span>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="legal-mini-footer">
+      <span>© 2026 yayzar.com. All rights reserved.</span>
+      <a href="./terms.html">Terms</a>
+      <a href="./privacy.html">Privacy</a>
+      <a href="./cookies.html">Cookies</a>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./location.js"></script>
+  </body>
+</html>
